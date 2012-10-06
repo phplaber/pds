@@ -125,7 +125,7 @@ ul.oxford li,ul.network li,ul.example li{
 	// 个人词典系统（PDS）
 	require('mysql.class.php');
 
-	$pds = new MysqlConnect('localhost', 'root', '198802102357', 'pds', 'utf8');
+	$pds = new MysqlConnect('localhost', 'root', '19********57', 'pds', 'utf8');
 	// 查询搜索关键词对应id
 	$result_id = $pds->fetchArray($pds->query("SELECT id FROM pds_basic WHERE word='".$_GET['wd']."'"));
 	if(!$result_id)
