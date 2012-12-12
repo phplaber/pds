@@ -1,0 +1,77 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>PDS后台入口</title>
+<style type="text/css">
+body{
+	text-align: center;}
+
+fieldset{
+	position: relative;
+	margin: 10px auto;
+	width: 700px;
+	text-align: left;}
+
+table{
+	height: 100px;}
+
+table tr td{
+	font-size: 13px;}
+
+p#error{
+	color: #F00;}
+
+div.logo{
+	position: absolute;
+	top: 70px;
+	right: 50px;
+	background-color: #9999CC;}
+</style>
+</head>
+
+<body>
+<fieldset>
+<legend><h3>PDS登录</h3></legend>
+<form name="loginForm" method="post" action="admin.php">
+<table>
+ <tbody>
+	 <tr>
+		<td align="right"><label for="un">用户名：</label></td>
+		<td><input type="text" id="un" name="un" size="23" /></td>
+	 </tr>
+	 <tr>
+		<td align="right"><label for="pw">密码：</label></td>
+		<td><input type="password" id="pw" name="pw" size="23" /></td>
+	 </tr>
+	 <tr>
+		<td colspan="2" align="right"><input type="submit" value="Login" /></td>
+	 </tr>
+	 <tr>
+		<td colspan="2"><p id="error"></p></td>
+	 </tr>
+ </tbody>
+</form>
+</table>
+
+<div class="logo"><img src="./pds.gif" alt="PDS" title="PDS - Personal Dict System" /></div>
+</fieldset>
+
+<script type="text/javascript" src="../jquery-1.7.2.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('input:submit').click(function(){
+		if ($.trim($('#un').val()) == '')
+		{
+			$('#error').html('用户名不能为空！');
+			return false;
+		}
+		if ($('#pw').val() == '')
+		{
+			$('#error').html('密码不能为空！');
+			return false;
+		}
+	});
+});
+</script>
+</body>
+</html>
