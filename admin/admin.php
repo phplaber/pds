@@ -27,7 +27,9 @@ if ($_SESSION['un'] == 'phplaber' && $_SESSION['pw'] == '19880210')
 <div id="menu">
 <ul>
 	<li><img src="point.png" />&nbsp;<a href="process.php?action=basic" target="rightframe">基本信息</a></li>
-	<li><img src="point.png" />&nbsp;<a href="process.php?action=example" target="rightframe">例句</a></li>
+	<li><img src="point.png" />&nbsp;<a href="process.php?action=example" target="rightframe">遣词造句</a></li>
+	<li><img src="point.png" />&nbsp;<a href="process.php?action=audio" target="rightframe">音频管理</a></li>
+	<li class="exit"><a href="process.php?action=exit">退出</a></li>
 </ul>
 </div>
 <div id="container">
@@ -35,7 +37,7 @@ if ($_SESSION['un'] == 'phplaber' && $_SESSION['pw'] == '19880210')
 </div>
 </div>
 <div id="foot">
-
+	<p>© <a href="http://phplaber.iteye.com/" style="text-decoration: none;">phplaber</a></p>
 </div>
 </body>
 </html>
