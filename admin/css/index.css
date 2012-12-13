@@ -35,6 +35,10 @@ body{
 #menu ul li a:hover{
 	text-decoration: underline;}
 
+#menu ul li.exit{
+	padding: 50px 0 0 45px;
+	font-size: 13px;}
+
 #container{
 	float: right;
 	width: 87%;
@@ -44,3 +48,6 @@ body{
 	clear: both;
 	height: 50px;
 	background-color: #CCCCCC;}
+
+#foot p{
+	padding: 10px 0 0 10px;}
