@@ -47,6 +47,8 @@ td a.delete:hover{
 	 <!-- 为了使表格美观整齐，将“牛津释义”表格单元放在文本域中。-->
 	 {if $key eq "network_def"}
 		<td><textarea rows="5" cols="61">{$item}</textarea></td>
+	 {elseif $item eq ''}
+		<td>&nbsp;</td>	<!-- 保持表格完整性 -->
 	 {else}
 		<td>{$item}</td>
 	 {/if}
@@ -59,5 +61,14 @@ td a.delete:hover{
 	{/foreach}
  </tbody>
 </table>
+
+<script type="text/javascript" src="../jquery-1.7.2.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.delete').click(function(){
+		return confirm('确定删除吗？');
+	});
+});
+</script>
 </body>
 </html>
