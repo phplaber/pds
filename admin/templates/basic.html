@@ -3,10 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title></title>
 <style type="text/css">
-p.add a,a:visited{
+p.b_add a,a:visited{
 	text-decoration: none;}
 
-p.add a:hover{
+p.b_add a:hover{
 	text-decoration: none;}
 
 th, td{
@@ -30,7 +30,7 @@ td a.delete:hover{
 </head>
 
 <body>
-<p class="add"><a href="process.php?action=add">新增</a></p>
+<p class="b_add"><a href="process.php?action=b_add">新增</a></p>
 <table width="100%" cellspacing="0" cellpadding="2">
  <tbody>
 	<tr bgcolor="#00CD00">
@@ -53,9 +53,9 @@ td a.delete:hover{
 		<td>{$item}</td>
 	 {/if}
 	 {/foreach}
-		<td>
-			<a href="process.php?action=edit&id={$basic['id']}">编辑</a>&nbsp;&nbsp;&nbsp;<a class="delete"
-			href="process.php?action=delete&id={$basic['id']}">删除</a>
+		<td align="center">
+			<a href="process.php?action=b_edit&id={$basic['id']}">编辑</a>&nbsp;&nbsp;&nbsp;<a class="delete"
+			href="process.php?action=b_delete&id={$basic['id']}">删除</a>
 		</td>
 	 </tr>
 	{/foreach}
