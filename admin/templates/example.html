@@ -1,0 +1,77 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<style type="text/css">
+p.add a,a:visited{
+	text-decoration: none;}
+
+p.add a:hover{
+	text-decoration: none;}
+
+th, td{
+	border: 1px solid #CCC;
+	font-size: 13px;}
+	
+textarea{
+	font-size: 13px;}
+	
+td a,a:visited{
+	font-weight: bold;
+	color: #9999CC;}
+
+td a:hover{
+	text-decoration: none;}
+
+td a.delete:hover{
+	background-color: #F00;
+	color: #FFF;}
+
+span{
+	color: #F00;}
+</style>
+</head>
+
+<body>
+<p class="add"><a href="process.php?action=e_add">新增</a></p>
+<table width="100%" cellspacing="0" cellpadding="2">
+ <tbody>
+	<tr bgcolor="#00CD00">
+		<th width="5%">编号</th>
+		<th width="5%">ID</th>
+		<th width="10%">单词</th>
+		<th width="35%">例句</th>
+		<th width="35%">翻译</th>
+		<th width="10%">操作</th>
+	</tr>
+	{foreach from=$examples item=example key=key}
+	<tr>
+		<td>{$key + 1}</td>
+	 {foreach from=$example item=item key=key}
+		{if ($item eq '') and ($key eq 'wid')}
+			<td><span>Deleted</span></td>
+		{elseif $item eq '' && $key eq 'example_zh'}
+			<td>&nbsp;</td>
+		{else}
+			<td>{$item}</td>
+		{/if}
+	 {/foreach}
+		<td align="center">
+			<a href="process.php?action=e_edit&id={$example['id']}">编辑</a>&nbsp;&nbsp;&nbsp;<a class="delete"
+			href="process.php?action=e_delete&id={$example['id']}">删除</a>
+		</td>
+	 </tr>
+	{/foreach}
+ </tbody>
+</table>
+
+<script type="text/javascript" src="../jquery-1.7.2.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.delete').click(function(){
+		return confirm('确定删除吗？');
+	});
+});
+</script>
+</body>
+</html>
