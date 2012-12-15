@@ -22,25 +22,25 @@ span{
 
 <body>
 <fieldset>
-<legend><strong>编辑单词</strong></legend>
+<legend><strong>新增单词</strong></legend>
 <form>
 <table>
  <tbody>
 	<tr>
 		<td align="right"><label for="word">单词</label></td>
-		<td><input type="text" name="word" id="word" value="{$basic.word}" />&nbsp;<span>*</span></td>
+		<td><input type="text" name="word" id="word" />&nbsp;<span>*</span></td>
 	</tr>
 	<tr>
 		<td align="right"><label for="phonogram">音标</label></td>
-		<td><input type="text" name="phonogram" id="phonogram" value="{$basic.phonogram}" /></td>
+		<td><input type="text" name="phonogram" id="phonogram" /></td>
 	</tr>
 	<tr>
 		<td align="right"><label for="oxford">牛津释义</label></td>
-		<td><textarea id="oxford" name="oxford" rows="5" cols="61">{$basic.oxford_def}</textarea></td>
+		<td><textarea id="oxford" name="oxford" rows="5" cols="61"></textarea></td>
 	</tr>
 	<tr>
 		<td align="right"><label for="network">网络释义</label></td>
-		<td><textarea id="network" name="network" rows="5" cols="61">{$basic.network_def}</textarea>&nbsp;<span>*</span></td>
+		<td><textarea id="network" name="network" rows="5" cols="61"></textarea>&nbsp;<span>*</span></td>
 	</tr>
 	<tr>
 		<td cols="2"><input type="button" id="save" value="提交" /></td>
@@ -73,8 +73,7 @@ $(document).ready(function(){
 			$.post(
 				'process.php',
 				{
-					anchor: 'edit',
-					id: {$basic.id},
+					anchor: 'b_add',
 					word: $.trim($('#word').val()),
 					phonogram: $.trim($('#phonogram').val()),
 					oxford: $.trim($('#oxford').val()),
