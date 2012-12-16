@@ -1,1 +1,2 @@
 admin/templates_c/*	 # 忽略所有模板编译文件
+admin/templates_c
