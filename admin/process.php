@@ -40,14 +40,39 @@ elseif ($_GET['action'] == 'example')
 	$smarty->assign("examples", $example);
 	$smarty->display('example.html');
 }
-// 上传音频文件
+// 音频文件
 elseif($_GET['action'] == 'audio')
 {
-	// TODO
-	/*
-	1，展示所有音频文件（附带：音频文件的地址）
-	2，上传音频文件
-	*/
+	$dir = '../audio';
+	$dirObj = dir($dir);
+	$audio = array();
+	//var_dump($dirObj);
+	while ($file = $dirObj->read())
+	{
+		if ($file !== '.' && $file !== '..')
+			$audio[] = $file;
+	}
+	$smarty->assign("audio", $audio);
+	$smarty->display('audio.html');
+}
+// 处理音频文件上传
+elseif ($_POST['anchor'] == 'upload')
+{
+	$audioDir = '../audio/';
+	$audioName = $audioDir . basename($_FILES['audio']['name']);
+
+	if (move_uploaded_file($_FILES['audio']['tmp_name'], $audioName))
+	{
+		// 刷新页面
+		echo <<<JS
+		<script type="text/javascript">
+			var url = 'process.php?action=audio';
+			location.href = url;
+		</script>
+JS;
+	}
+	else
+		echo '<span style="color: #F00; font-weight: bold;">Upload file fail!</span>';
 }
 // [begin 新增单词]
 elseif ($_GET['action'] == 'b_add')
@@ -111,8 +136,8 @@ elseif ($_GET['action'] == 'e_add')
 elseif ($_POST['anchor'] == 'e_add')
 {
 	$word = $_POST['word'];
-	$example_en_1 = $_POST['example_en_1'];
-	$example_zh_1 = $_POST['example_zh_1'];
+	$example_en_1 = htmlspecialchars($_POST['example_en_1']);
+	$example_zh_1 = htmlspecialchars($_POST['example_zh_1']);
 
 	// 通过$word在pds_basic中找到对应id
 	$tmp1 = $pds->query("SELECT id FROM pds_basic WHERE word = '" .$word. "' LIMIT 1");
@@ -133,8 +158,8 @@ elseif ($_POST['anchor'] == 'e_add')
 	}
 	else
 	{
-		$example_en_2 = $_POST['example_en_2'];
-		$example_zh_2 = $_POST['example_zh_2'];
+		$example_en_2 = htmlspecialchars($_POST['example_en_2']);
+		$example_zh_2 = htmlspecialchars($_POST['example_zh_2']);
 		if ($_POST['example_en_3'] == '')
 		{
 			$r1 = $pds->query("INSERT INTO pds_example VALUES(null, '" .$wid. "', '" .$example_en_1. "', '" .$example_zh_1. "')");
@@ -143,8 +168,8 @@ elseif ($_POST['anchor'] == 'e_add')
 		}
 		else
 		{
-			$example_en_3 = $_POST['example_en_3'];
-			$example_zh_3 = $_POST['example_zh_3'];
+			$example_en_3 = htmlspecialchars($_POST['example_en_3']);
+			$example_zh_3 = htmlspecialchars($_POST['example_zh_3']);
 
 			$r1 = $pds->query("INSERT INTO pds_example VALUES(null, '" .$wid. "', '" .$example_en_1. "', '" .$example_zh_1. "')");
 			$r2 = $pds->query("INSERT INTO pds_example VALUES(null, '" .$wid. "', '" .$example_en_2. "', '" .$example_zh_2. "')");
@@ -171,8 +196,8 @@ elseif ($_GET['action'] == 'e_edit')
 elseif ($_POST['anchor'] == 'e_edit')
 {
 	$id = $_POST['id'];
-	$example_en = $_POST['example_en'];
-	$example_zh = $_POST['example_zh'];
+	$example_en = htmlspecialchars($_POST['example_en']);
+	$example_zh = htmlspecialchars($_POST['example_zh']);
 
 	$r = $pds->query("UPDATE pds_example SET example_en = '" .$example_en. "', example_zh = '" .$example_zh. "' WHERE id = {$id}");
 	if ($r) echo '更新成功';
