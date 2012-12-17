@@ -27,8 +27,13 @@ td a.delete:hover{
 	background-color: #F00;
 	color: #FFF;}
 
-span{
+strong{
 	color: #F00;}
+
+.prenext span{
+	font-size: 13px;
+	font-weight: bold;
+	color: #00CD00;}
 </style>
 </head>
 
@@ -49,8 +54,8 @@ span{
 		<td>{$key + 1}</td>
 	 {foreach from=$example item=item key=key}
 		{if ($item eq '') and ($key eq 'wid')}
-			<td><span>Deleted</span></td>
-		{elseif $item eq '' && $key eq 'example_zh'}
+			<td><strong>Deleted</strong></td>
+		{elseif ($item eq '') and ($key eq 'example_zh')}
 			<td>&nbsp;</td>
 		{else}
 			<td>{$item}</td>
@@ -64,6 +69,7 @@ span{
 	{/foreach}
  </tbody>
 </table>
+<p class="prenext"><span>分页显示：</span>{$prenext}</p>
 
 <script type="text/javascript" src="../jquery-1.7.2.js"></script>
 <script type="text/javascript">
