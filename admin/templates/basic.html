@@ -26,6 +26,11 @@ td a:hover{
 td a.delete:hover{
 	background-color: #F00;
 	color: #FFF;}
+
+.prenext span{
+	font-size: 13px;
+	font-weight: bold;
+	color: #00CD00;}
 </style>
 </head>
 
@@ -61,6 +66,7 @@ td a.delete:hover{
 	{/foreach}
  </tbody>
 </table>
+<p class="prenext"><span>分页显示：</span>{$prenext}</p>
 
 <script type="text/javascript" src="../jquery-1.7.2.js"></script>
 <script type="text/javascript">
