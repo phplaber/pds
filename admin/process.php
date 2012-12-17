@@ -10,20 +10,57 @@ $smarty = new Smarty;
 // 查询所有单词的基本信息
 if ($_GET['action'] == 'basic')
 {
-	$r = $pds->query("SELECT * FROM pds_basic");
+	// 实现分页(*每一次翻页，查询一次数据库*)
+	$total = $pds->getNumbers($pds->query("SELECT * FROM pds_basic"));	// 记录总数
+	$words_of_page = 8;	// 每页显示记录数
+	$pagesum = ceil($total/$words_of_page);	// 总分页数
+	$page = $_GET['page'];	// 当前页
+	if(!isset($page) || $page > $pagesum || $page < 1)	$page=1;
+	$r = $pds->query("SELECT * FROM pds_basic LIMIT ". ($page-1)*$words_of_page .",". $words_of_page);
 	$count = $pds->getNumbers($r);
 	$basic = array();
 	for ($i=0; $i < $count; $i++)
 	{
 		$basic[$i] = $pds->fetchArray($r);
 	}
+	// notice: 更好的实践应该是将“分页显示”封装在一个类中。
+	switch($pagesum)
+	{
+		case 1:
+			$prenext = '<b>1</b>';
+			break;
+
+		case 2:
+			if($page == 1)	$prenext = "<b>1</b>&nbsp;<a href='?action=basic&page=2'>2</a>";
+			if($page == 2)	$prenext = "<a href='?action=basic&page=1'>1</a>&nbsp;<b>2</b>";
+			break;
+
+		case 3:
+			if($page == 1)	$prenext = "<b>1</b>&nbsp;<a href='?action=basic&page=2'>2</a>&nbsp;<a href='?action=basic&page=3'>3</a>";
+			if($page == 2)	$prenext = "<a href='?action=basic&page=1'>1</a>&nbsp;<b>2</b>&nbsp;<a href='?action=basic&page=3'>3</a>";
+			if($page == 3)	$prenext = "<a href='?action=basic&page=1'>1</a>&nbsp;<a href='?action=basic&page=2'>2</a>&nbsp;<b>3</b>";
+			break;
+
+		default:
+			if($page == 1)	$prenext = "Start&nbsp;Prev&nbsp;<b>1</b>&nbsp;<a href='?action=basic&page=2'>2</a>&nbsp;<a href='?action=basic&page=3'>3</a>&nbsp;<a href='?action=basic&page=2'>Next</a>&nbsp;<a href='?action=basic&page=".$pagesum."'>End</a>";
+			if($page == 2)	$prenext = "<a href='?action=basic&page=1'>Start</a>&nbsp;<a href='?action=basic&page=1'>Prev</a>&nbsp;<a href='?action=basic&page=1'>1</a>&nbsp;<b>2</b>&nbsp;<a href='?action=basic&page=3'>3</a>&nbsp;<a href='?action=basic&page=3'>Next</a>&nbsp;<a href='?action=basic&page=".$pagesum."'>End</a>";
+			if($page == 3)	$prenext = "<a href='?action=basic&page=1'>Start</a>&nbsp;<a href='?action=basic&page=2'>Prev</a>&nbsp;<a href='?action=basic&page=1'>1</a>&nbsp;<a href='?action=basic&page=2'>2</a>&nbsp;<b>3</b>&nbsp;<a href='?action=basic&page=4'>Next</a>&nbsp;<a href='?action=basic&page=".$pagesum."'>End</a>";
+			if($page>3 && $page<$pagesum)	$prenext = "<a href='?action=basic&page=1'>Start</a>&nbsp;<a href='?action=basic&page=".($page-1)."'>Prev</a>&nbsp;<a href='?action=basic&page=1'>1</a>&nbsp;<a href='?action=basic&page=2'>2</a>&nbsp;<a href='?action=basic&page=3'>3</a>&nbsp;<a href='?action=basic&page=".($page+1)."'>Next</a>&nbsp;<a href='?action=basic&page=".$pagesum."'>End</a>";
+			if($page == $pagesum)	$prenext = "<a href='?action=basic&page=1'>Start</a>&nbsp;<a href='?action=basic&page=".($page-1)."'>Prev</a>&nbsp;<a href='?action=basic&page=1'>1</a>&nbsp;<a href='?action=basic&page=2'>2</a>&nbsp;<a href='?action=basic&page=3'>3</a>&nbsp;Next&nbsp;End";
+	}
+	$smarty->assign("prenext", $prenext);
 	$smarty->assign("basics", $basic);
 	$smarty->display('basic.html');
 }
 // 查询所有单词的例句
 elseif ($_GET['action'] == 'example')
 {
-	$r = $pds->query("SELECT * FROM pds_example ORDER BY wid ASC");
+	$total = $pds->getNumbers($pds->query("SELECT * FROM pds_example"));
+	$examples_of_page = 30;	// 每页显示记录数
+	$pagesum = ceil($total/$examples_of_page);	// 总分页数
+	$page = $_GET['page'];	// 当前页
+	if(!isset($page) || $page > $pagesum || $page < 1)	$page=1;
+	$r = $pds->query("SELECT * FROM pds_example ORDER BY wid ASC LIMIT ". ($page-1)*$examples_of_page .",". $examples_of_page);
 	$count = $pds->getNumbers($r);
 	$example = array();
 	for ($i=0; $i < $count; $i++)
@@ -37,6 +74,31 @@ elseif ($_GET['action'] == 'example')
 		$result['example_en'] = str_ireplace($word['word'], "<b style='color:green;'>{$word['word']}</b>", $result['example_en']);
 		$example[$i] = $result;
 	}
+	switch($pagesum)
+	{
+		case 1:
+			$prenext = '<b>1</b>';
+			break;
+
+		case 2:
+			if($page == 1)	$prenext = "<b>1</b>&nbsp;<a href='?action=example&page=2'>2</a>";
+			if($page == 2)	$prenext = "<a href='?action=example&page=1'>1</a>&nbsp;<b>2</b>";
+			break;
+
+		case 3:
+			if($page == 1)	$prenext = "<b>1</b>&nbsp;<a href='?action=example&page=2'>2</a>&nbsp;<a href='?action=example&page=3'>3</a>";
+			if($page == 2)	$prenext = "<a href='?action=example&page=1'>1</a>&nbsp;<b>2</b>&nbsp;<a href='?action=example&page=3'>3</a>";
+			if($page == 3)	$prenext = "<a href='?action=example&page=1'>1</a>&nbsp;<a href='?action=example&page=2'>2</a>&nbsp;<b>3</b>";
+			break;
+
+		default:
+			if($page == 1)	$prenext = "Start&nbsp;Prev&nbsp;<b>1</b>&nbsp;<a href='?action=example&page=2'>2</a>&nbsp;<a href='?action=example&page=3'>3</a>&nbsp;<a href='?action=example&page=2'>Next</a>&nbsp;<a href='?action=example&page=".$pagesum."'>End</a>";
+			if($page == 2)	$prenext = "<a href='?action=example&page=1'>Start</a>&nbsp;<a href='?action=example&page=1'>Prev</a>&nbsp;<a href='?action=example&page=1'>1</a>&nbsp;<b>2</b>&nbsp;<a href='?action=example&page=3'>3</a>&nbsp;<a href='?action=example&page=3'>Next</a>&nbsp;<a href='?action=example&page=".$pagesum."'>End</a>";
+			if($page == 3)	$prenext = "<a href='?action=example&page=1'>Start</a>&nbsp;<a href='?action=example&page=2'>Prev</a>&nbsp;<a href='?action=example&page=1'>1</a>&nbsp;<a href='?action=example&page=2'>2</a>&nbsp;<b>3</b>&nbsp;<a href='?action=example&page=4'>Next</a>&nbsp;<a href='?action=example&page=".$pagesum."'>End</a>";
+			if($page>3 && $page<$pagesum)	$prenext = "<a href='?action=example&page=1'>Start</a>&nbsp;<a href='?action=example&page=".($page-1)."'>Prev</a>&nbsp;<a href='?action=example&page=1'>1</a>&nbsp;<a href='?action=example&page=2'>2</a>&nbsp;<a href='?action=example&page=3'>3</a>&nbsp;<a href='?action=example&page=".($page+1)."'>Next</a>&nbsp;<a href='?action=example&page=".$pagesum."'>End</a>";
+			if($page == $pagesum)	$prenext = "<a href='?action=example&page=1'>Start</a>&nbsp;<a href='?action=example&page=".($page-1)."'>Prev</a>&nbsp;<a href='?action=example&page=1'>1</a>&nbsp;<a href='?action=example&page=2'>2</a>&nbsp;<a href='?action=example&page=3'>3</a>&nbsp;Next&nbsp;End";
+	}
+	$smarty->assign("prenext", $prenext);
 	$smarty->assign("examples", $example);
 	$smarty->display('example.html');
 }
