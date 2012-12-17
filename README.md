@@ -13,11 +13,11 @@ PDS采用PHP+MySQL的组合开发，所以需要用到数据库。为了使用PD
     <?php
     // 数据库配置
     return array(
-	    'server' => 'localhost',	// 数据库服务器
-	    'user' => 'root',		// 用户名
-	    'password' => 19880210,	// 密码
-	    'db' => 'pds',		// 数据库
-	    'charset' => 'utf8');	// 字符编码
+	    'server' => 'localhost',
+	    'user' => 'root',
+	    'password' => 19880210,
+	    'db' => 'pds',
+	    'charset' => 'utf8');
     ?>
 
 将其中数据改写为自身环境权限即可。
