@@ -21,14 +21,14 @@ if ($_SESSION['un'] == 'phplaber' && $_SESSION['pw'] == '19880210')
 
 <body>
 <div id="head">
-	<h1><img src="./pds.gif" title="PDS" /></h1>
+	<h1><img src="./img/pds.gif" title="PDS" /></h1>
 </div>
 <div id="content">
 <div id="menu">
 <ul>
-	<li><img src="point.png" />&nbsp;<a href="process.php?action=basic" target="rightframe">基本信息</a></li>
-	<li><img src="point.png" />&nbsp;<a href="process.php?action=example" target="rightframe">遣词造句</a></li>
-	<li><img src="point.png" />&nbsp;<a href="process.php?action=audio" target="rightframe">音频管理</a></li>
+	<li><img src="./img/point.png" />&nbsp;<a href="process.php?action=basic" target="rightframe">基本信息</a></li>
+	<li><img src="./img/point.png" />&nbsp;<a href="process.php?action=example" target="rightframe">遣词造句</a></li>
+	<li><img src="./img/point.png" />&nbsp;<a href="process.php?action=audio" target="rightframe">音频管理</a></li>
 	<li class="exit"><a href="process.php?action=exit">退出</a></li>
 </ul>
 </div>

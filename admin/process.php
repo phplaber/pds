@@ -1,7 +1,7 @@
 <?php
 /* 控制器 */
 session_start();
-require('../mysql.class.php');
+require('../lib/mysql.class.php');
 require('../Smarty/Smarty.class.php');
 $db = require('../config.php');
 $pds = new MysqlConnect($db['server'], $db['user'], $db['password'], $db['db'], $db['charset']);

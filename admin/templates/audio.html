@@ -31,7 +31,7 @@ span{
 <legend><strong>音频文件管理</strong></legend>
 <ul>
 {foreach from=$audio item=item}
-	<li><img src="mp3.png" />&nbsp;<a href="../audio/{$item}">{$item}</a></li>
+	<li><img src="./img/mp3.png" />&nbsp;<a href="../audio/{$item}">{$item}</a></li>
 {/foreach}
 </ul>
 <form method="post" action="process.php" enctype="multipart/form-data">

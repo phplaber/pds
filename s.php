@@ -22,7 +22,7 @@ body{
 	text-align:left;}
 	
 #searchForm #wd{
-    background: url("i2.png") no-repeat 0 0;
+    background: url("./images/i2.png") no-repeat 0 0;
     border-color: #7B7B7B #B6B6B6 #B6B6B6 #7B7B7B;
     border-image: none;
     border-style: solid;
@@ -37,7 +37,7 @@ body{
     width: 420px;}
 
 #searchForm #st{
-	background: url("i-1.0.0.png") repeat 0 0 #DDDDDD;
+	background: url("./images/i-1.0.0.png") repeat 0 0 #DDDDDD;
     border: 0 none;
     cursor: pointer;
     font-size: 14px;
@@ -56,7 +56,7 @@ h2 span b{
 	font-weight:normal;}
 
 h2 span a{
-	background:url("buttons.png") no-repeat -124px -4px;
+	background:url("./images/buttons.png") no-repeat -124px -4px;
 	margin-top: -3px;
 	opacity: 0.667;
 	vertical-align: middle;
@@ -123,7 +123,7 @@ ul.oxford li,ul.network li,ul.example li{
 </div>
 <?php
 	// 个人词典系统（PDS）
-	require('mysql.class.php');
+	require('./lib/mysql.class.php');
 	$db = require('config.php');
 
 	$pds = new MysqlConnect($db['server'], $db['user'], $db['password'], $db['db'], $db['charset']);
@@ -174,7 +174,7 @@ HTML;
 	$pds->close();
 ?> 
 </div>
-<script type="text/javascript" src="jquery-1.7.2.js"></script>
+<script type="text/javascript" src="./lib/jquery-1.7.2.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$("a").click(function(){
